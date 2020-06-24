@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  title 
+{% endblock %}
+
+{% block content %}
+  <div class="col-8 mt-5">
+    <form id="createTaskForm" class="form-inline justify-content-center" data-url="{% url 'task_list_url' %}">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mx-3">
+          {{ field }}
+        </div>
+      {% endfor %}
+      <button type="button" id="createTaskBtn" class="btn btn-primary btn-lg fas fa-plus-square"></button>
+    </form>
+  </div>
+
+  <div class="col-5 mt-5" id="taskList">
+    {% for task in tasks  %}
+      <div class="card mb-1" data-id="{{ task.id }}">
+        <div class="card-body">
+          <button type="button" class="completeTaskBtn btn {% if task.completed %} btn-success {% else %} btn-outline-secondary {% endif %} far fa-check-square" data-id="{{ task.id }}"></button>
+          <span class="ml-1">{{ task.title }}</span>
+          <button type="button" class="deleteTaskBtn btn btn-outline-danger btn-sm float-right fas fa-trash-alt" data-id="{{ task.id }}"></button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% endblock %}
