@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="col-8 mt-5">
+  <div class="col-12 mt-5">
     <form id="createTaskForm" class="form-inline justify-content-center" data-url="{% url 'task_list_url' %}">
       {% csrf_token %}
       {% for field in form %}
@@ -17,7 +17,7 @@
     </form>
   </div>
 
-  <div class="col-5 mt-5" id="taskList">
+  <div class="col-6 mt-5" id="taskList">
     {% for task in tasks  %}
       <div class="card mb-1" data-id="{{ task.id }}">
         <div class="card-body">

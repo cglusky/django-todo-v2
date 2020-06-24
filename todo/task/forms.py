@@ -8,5 +8,5 @@ class TaskForm(forms.ModelForm):
             fields = ['title']
             
             widgets = {
-                'title': forms.TextInput(attrs={'id': 'createTaskFld', 'class': 'form-control', 'placeholder': 'Enter new task...', 'autofocus': '' })
+                'title': forms.TextInput(attrs={'id': 'createTaskFld', 'class': 'form-control-lg', 'placeholder': 'Enter new task...', 'autofocus': '' })
             }
