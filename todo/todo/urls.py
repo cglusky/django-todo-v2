@@ -19,6 +19,7 @@ from .views import redirect_to_tasks
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('tasks/', include('task.urls')),
     path('', redirect_to_tasks)
