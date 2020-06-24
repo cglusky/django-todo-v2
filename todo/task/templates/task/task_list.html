@@ -21,7 +21,7 @@
     {% for task in tasks  %}
       <div class="card mb-1" data-id="{{ task.id }}">
         <div class="card-body">
-          <button type="button" class="completeTaskBtn btn {% if task.completed %} btn-success {% else %} btn-outline-secondary {% endif %} far fa-check-square" data-id="{{ task.id }}"></button>
+          <button type="button" class="completeTaskBtn btn btn-sm {% if task.completed %} btn-success far fa-check-square{% else %} btn-outline-secondary fa fa-square-o{% endif %}" data-id="{{ task.id }}"></button>
           <span class="ml-1">{{ task.title }}</span>
           <button type="button" class="deleteTaskBtn btn btn-outline-danger btn-sm float-right fas fa-trash-alt" data-id="{{ task.id }}"></button>
         </div>

@@ -12,7 +12,7 @@ $(document).ready(function () {
       url: $("#createTaskForm").data("url"),
       data: serializedData,
       success: function (response) {
-        $("#taskList").append('<div class="card mb-1" data-id="' + response.task.id + '"><div class="card-body"><button type="button" id="completeTaskBtn" class="btn btn-outline-secondary far fa-check-square"></button><span class="ml-1">' + response.task.title + '</span><button type="button" id="deleteTaskBtn" class="btn btn-outline-danger btn-sm float-right fas fa-trash-alt"></button></div></div>')
+        $("#taskList").prepend('<div class="card mb-1" data-id="' + response.task.id + '"><div class="card-body"><button type="button" class="completeTaskBtn btn btn-sm btn-outline-secondary fa fa-square-o" data-id="' + response.task.id + '"></button><span class="ml-1">' + response.task.title + '</span><button type="button" class=" deleteTaskBtn btn btn-outline-danger btn-sm float-right fas fa-trash-alt" data-id="' + response.task.id + '"></button></div></div>')
     }
     });
     // Clear input field after submission
@@ -25,23 +25,46 @@ $(document).ready(function () {
     if (event.key === "Enter") {
       event.preventDefault();
       $("#createTaskBtn").click();
-    };
+    }
   });
   
-  // Handle completed items via click of check box
-  $("button.completeTaskBtn").click(function () {
-     let dataID = $(this).data("id");
-      $.ajax({
-        type: "post",
-        url: "/tasks/" + dataID + "/completed/",
-        data: {
-          csrfmiddlewaretoken: csrfToken,
-          id: dataID
-        },
-        success: function () {
-          let currentBtn = $('button.completeTaskBtn[data-id="' + dataID + '"]');
-          currentBtn.removeClass('btn-outline-secondary').addClass('btn-success');
-        }
-      })
-    })
-})
+  // Handle completed items via click of button
+  // Selector for parent required to register onclick after ajax prepend
+  $("#taskList").on("click", "button.completeTaskBtn", function () {
+     
+    let dataID = $(this).data("id");
+      
+    $.ajax({
+      type: "post",
+      url: "/tasks/" + dataID + "/completed/",
+      data: {
+        csrfmiddlewaretoken: csrfToken,
+        id: dataID
+      },
+      success: function () {
+        let currentBtn = $('button.completeTaskBtn[data-id="' + dataID + '"]');
+        currentBtn.removeClass('btn-outline-secondary btn-sm fa fa-square-o').addClass('btn-success btn-sm far fa-check-square');
+      }
+    });
+  });
+
+  // Handle completed items via click of button
+  // Selector for parent required to register onclick after ajax prepend
+  $("#taskList").on("click", "button.deleteTaskBtn", function () {
+     
+    let dataID = $(this).data("id");
+      
+    $.ajax({
+      type: "post",
+      url: "/tasks/" + dataID + "/delete/",
+      data: {
+        csrfmiddlewaretoken: csrfToken,
+        id: dataID
+      },
+      success: function () {
+        $('.card[data-id="' + dataID + '"]').fadeOut(500, function(){ $(this).remove();});
+      }
+    });
+  });
+
+});
