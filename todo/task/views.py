@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 class TaskList(View):
     def get(self, request):
         form = TaskForm()
-        tasks = Task.objects.all().order_by('-date')
+        tasks = Task.objects.all()
         return render(request, 'task/task_list.html', context={'form': form, 'tasks': tasks})
 
     def post(self, request):

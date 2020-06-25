@@ -14,13 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, reverse_lazy
 from .views import redirect_to_tasks
+from django.views.generic import RedirectView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('tasks/', include('task.urls')),
-    path('', redirect_to_tasks)
+    #path('', redirect_to_tasks),
+    path('', RedirectView.as_view(url=reverse_lazy('task_list_url')), name='redirect'),
+
 ]

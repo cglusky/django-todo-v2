@@ -44,11 +44,18 @@ $(document).ready(function () {
       success: function () {
         let currentBtn = $('button.completeTaskBtn[data-id="' + dataID + '"]');
         currentBtn.removeClass('btn-outline-secondary btn-sm fa fa-square-o').addClass('btn-success btn-sm far fa-check-square');
+        let currentCard = $('.card[data-id="' + dataID + '"]')
+        // currentCard.fadeOut(500, function(){ $(this).detach().appendTo("#taskList");});
+        currentCard.fadeOut(500, function(){ 
+          $(this).detach().appendTo("#taskList");
+        }).fadeIn();
+        //setTimeout(1000, function(){currentCard.appendTo("#taskList")});
+        //currentCard.appendTo("#taskList");
       }
     });
   });
 
-  // Handle completed items via click of button
+  // Handle deleting tasks via click of button
   // Selector for parent required to register onclick after ajax prepend
   $("#taskList").on("click", "button.deleteTaskBtn", function () {
      
@@ -62,7 +69,7 @@ $(document).ready(function () {
         id: dataID
       },
       success: function () {
-        $('.card[data-id="' + dataID + '"]').fadeOut(500, function(){ $(this).remove();});
+        $('.card[data-id="' + dataID + '"]').fadeOut(300, function(){ $(this).remove();});
       }
     });
   });
