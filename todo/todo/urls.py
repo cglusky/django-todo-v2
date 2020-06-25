@@ -24,7 +24,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('tasks/', include('task.urls')),
-    #path('', redirect_to_tasks),
     path('', RedirectView.as_view(url=reverse_lazy('task_list_url')), name='redirect'),
 
 ]
