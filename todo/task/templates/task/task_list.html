@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  title 
+  Tasks List
 {% endblock %}
 
 {% block content %}
-  <div class="col-12 mt-5">
-    <form id="createTaskForm" class="form-inline justify-content-center" data-url="{% url 'task_list_url' %}">
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="mx-3">
-          {{ field }}
-        </div>
-      {% endfor %}
-      <button type="button" id="createTaskBtn" class="btn btn-primary btn-lg fas fa-plus-square"></button>
-    </form>
-  </div>
+  
+  
+  <form id="createTaskForm" class="form-inline justify-content-center" data-url="{% url 'task_list_url' %}">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="mx-3">
+        {{ field }}
+      </div>
+    {% endfor %}
+    <button type="button" id="createTaskBtn" class="btn btn-primary btn-lg fas fa-plus-square"></button>
+  </form>
+  
 
-  <div class="col-6 mt-5" id="taskList">
+  <div id="taskList" class="mt-5">
     {% for task in tasks  %}
       <div class="card mb-1" data-id="{{ task.id }}">
         <div class="card-body">
@@ -29,4 +30,4 @@
     {% endfor %}
   </div>
 
-  {% endblock %}
+{% endblock %}

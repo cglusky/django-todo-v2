@@ -14,32 +14,28 @@
   <script src="{% static 'js/todo.js' %}" defer></script>
   <title>
     {% block title %}
-    {% endblock %} | TODOTO  
+    {% endblock %} | ToDoTo  
   </title>
 </head>
 <body>
-  {% include "base_navbar.html" %}
-  
+
   <div class="container">
-    <div class="row justify-content-center">
-      {% block content %}
-
-      {% endblock %}
+    <div class="row">
+      <div class="col-md-12">
+        {% include "top_navbar.html" %}
+      </div>
     </div>
-  </div> 
-  
-  {% if user.is_authenticated %}
-    Hi {{ user.username }}!
-  {% else %}
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}">login</a>
-  {% endif %}
+    <div class="row">
+      <div class="col-md-4">
+        {% include "side_navbar.html" %}
+      </div>
+      <div class="col-md-8 mt-5 justify-content-center">
+        {% block content %}
+          ToDoTo
+        {% endblock %}
+      </div>  
+    </div>
+  </div>
 
-  {% if user.is_authenticated and user.is_staff %}
-    {% block admin-panel %}
-    
-    {% endblock %}
-  {% endif %}  
-  
 </body>
 </html>

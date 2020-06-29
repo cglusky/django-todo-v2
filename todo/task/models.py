@@ -12,4 +12,4 @@ class Task(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['completed', 'date']
+        ordering = ['completed', '-date']
